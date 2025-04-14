@@ -1,0 +1,60 @@
+<div class="modal fade show d-block" tabindex="-1" style="background-color: rgba(0,0,0,0.5);">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">{{ isEditMode ? 'Editar Flor' : 'Nueva Flor' }}</h5>
+          <button type="button" class="btn-close" (click)="onCancel()" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="mb-3">
+              <label for="name" class="form-label">Nombre</label>
+              <input type="text" class="form-control" id="name" [(ngModel)]="flower.name" name="name" required>
+            </div>
+            <div class="mb-3">
+              <label for="color" class="form-label">Color</label>
+              <input type="text" class="form-control" id="color" [(ngModel)]="flower.color" name="color" required>
+            </div>
+            <div class="mb-3">
+              <label for="price" class="form-label">Precio ($)</label>
+              <input type="number" step="0.01" class="form-control" id="price" [(ngModel)]="flower.price" name="price" required>
+            </div>
+            <div class="mb-3">
+              <label for="stock" class="form-label">Stock</label>
+              <input type="number" class="form-control" id="stock" [(ngModel)]="flower.stock" name="stock" required>
+            </div>
+            <div class="mb-3">
+              <label for="description" class="form-label">Descripción</label>
+              <textarea class="form-control" id="description" [(ngModel)]="flower.description" name="description" rows="3"></textarea>
+            </div>
+            <div class="mb-3">
+              <label for="has_scent" class="form-label">¿Tiene aroma?</label>
+              <select class="form-select" id="has_scent" [(ngModel)]="flower.has_scent" name="has_scent" required>
+                <option [value]="true">Sí</option>
+                <option [value]="false">No</option>
+              </select>
+            </div>
+            <div class="mb-3">
+              <label for="bloom_season" class="form-label">Temporada de floración</label>
+              <select class="form-select" id="bloom_season" [(ngModel)]="flower.bloom_season" name="bloom_season" required>
+                <option value="" disabled>Selecciona una temporada</option>
+                <option *ngFor="let season of seasons" [value]="season">{{ season }}</option>
+              </select>
+            </div>
+            <div class="mb-3">
+              <label for="stem_length" class="form-label">Longitud del tallo (cm)</label>
+              <input type="number" class="form-control" id="stem_length" [(ngModel)]="flower.stem_length" name="stem_length" required>
+            </div>
+            <div class="mb-3">
+              <label for="lifespan" class="form-label">Duración (días)</label>
+              <input type="number" class="form-control" id="lifespan" [(ngModel)]="flower.lifespan" name="lifespan" required>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" (click)="onCancel()">Cancelar</button>
+          <button type="button" class="btn btn-primary" (click)="onSave()" [disabled]="!flower.name || !flower.color || !flower.price || !flower.stock || !flower.bloom_season || !flower.stem_length || !flower.lifespan">Guardar</button>
+        </div>
+      </div>
+    </div>
+  </div>

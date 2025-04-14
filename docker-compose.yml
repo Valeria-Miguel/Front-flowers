@@ -1,0 +1,41 @@
+version: '3.8'
+
+services:
+  envoy:
+    image: envoyproxy/envoy:v1.23-latest
+    volumes:
+      - ./envoy.yaml:/etc/envoy/envoy.yaml:ro
+    ports:
+      - "10001:10001"           # 
+      - "9902:9902"       # Interfaz de administración de Envoy
+    depends_on:
+      - angular_app1
+      - angular_app2
+    networks:
+      - frontend_network
+
+  angular_app1:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8081:8081"         # Se expone en el host en 8081, pero dentro del contenedor sirve en 80 (nginx)
+    environment:
+      - NG_APP_NAME=App1
+    networks:
+      - frontend_network
+
+  angular_app2:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8082:8082"         # Se expone en el host en 8082, pero dentro del contenedor sirve en 80 (nginx)
+    environment:
+      - NG_APP_NAME=App2
+    networks:
+      - frontend_network
+
+networks:
+  frontend_network:
+    driver: bridge

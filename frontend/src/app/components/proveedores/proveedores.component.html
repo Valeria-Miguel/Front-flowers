@@ -1,0 +1,69 @@
+<div class="container mt-4">
+    <h2 class="mb-4">Administración de Proveedores</h2>
+  
+    <div class="d-flex justify-content-between mb-4">
+      <button (click)="openCreateModal()" class="btn btn-primary">
+        <i class="bi bi-plus-circle"></i> Nuevo Proveedor
+      </button>
+  
+      <div *ngIf="loading$ | async" class="spinner-border text-primary" role="status">
+        <span class="visually-hidden">Cargando...</span>
+      </div>
+    </div>
+  
+    <div *ngIf="error$ | async as error" class="alert alert-danger">
+      {{ error }}
+    </div>
+  
+    <div class="table-responsive">
+      <table class="table table-hover table-striped">
+        <thead class="table-dark">
+          <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Contacto</th>
+            <th>Email</th>
+            <th>Teléfono</th>
+            <th>Dirección</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let supplier of suppliers$ | async">
+            <td>{{ supplier?.id }}</td>
+            <td>{{ supplier?.name }}</td>
+            <td>{{ supplier?.contact_person }}</td>
+            <td>{{ supplier?.email }}</td>
+            <td>{{ supplier?.phone }}</td>
+            <td>{{ supplier?.address }}</td>
+            <td class="text-end">
+              <div class="btn-group" role="group">
+                <button 
+                  (click)="openEditModal(supplier)" 
+                  class="btn btn-sm btn-warning me-1"
+                  title="Editar"
+                  [disabled]="!supplier?.id">
+                  <i class="bi bi-pencil"></i>
+                </button>
+                <button 
+                  (click)="deleteSupplier(supplier?.id)" 
+                  class="btn btn-sm btn-danger"
+                  title="Eliminar"
+                  [disabled]="!supplier?.id">
+                  <i class="bi bi-trash"></i>
+                </button>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  
+    <app-supplier-modal 
+      *ngIf="showModal && selectedSupplier"
+      [supplier]="selectedSupplier"
+      [isEditMode]="isEditMode"
+      (save)="saveSupplier($event)"
+      (cancel)="closeModal()">
+    </app-supplier-modal>
+  </div>

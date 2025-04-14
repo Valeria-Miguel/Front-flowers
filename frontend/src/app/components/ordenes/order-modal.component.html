@@ -1,0 +1,43 @@
+<div class="modal">
+  <div class="modal-content">
+    <h2>{{ isEditMode ? 'Editar Orden' : 'Nueva Orden' }}</h2>
+    <form>
+      <div>
+        <label>Dirección de entrega:</label>
+        <input type="text" [(ngModel)]="order.delivery_address" name="delivery_address" required />
+      </div>
+      <div>
+        <label>Fecha de entrega:</label>
+        <input type="datetime-local" [(ngModel)]="order.delivery_date" name="delivery_date" required />
+      </div>
+      <div>
+        <label>Estado:</label>
+        <select [(ngModel)]="order.current_state" name="current_state">
+          <option *ngFor="let state of states" [value]="state">{{ stateDisplays[state] }}</option>
+        </select>
+      </div>
+      <div>
+        <label>Notas:</label>
+        <textarea [(ngModel)]="order.notes" name="notes"></textarea>
+      </div>
+      <div>
+        <h3>Ítems</h3>
+        <div *ngFor="let item of order.items; let i = index; trackBy: trackByIndex">
+          <label>Flor:</label>
+          <select [(ngModel)]="item.flower" [name]="'flower-' + i">
+            <option [value]="0">Seleccionar flor</option>
+            <option *ngFor="let flower of (flowers$ | async)" [value]="flower.id">{{ flower.name }}</option>
+          </select>
+          <label>Cantidad:</label>
+          <input type="number" [(ngModel)]="item.quantity" [name]="'quantity-' + i" min="1" />
+          <button type="button" (click)="removeItem(i)">Eliminar</button>
+        </div>
+        <button type="button" (click)="addItem()">Añadir ítem</button>
+      </div>
+      <div>
+        <button type="button" (click)="onSave()">Guardar</button>
+        <button type="button" (click)="onCancel()">Cancelar</button>
+      </div>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,46 @@
+<div class="modal fade show d-block" tabindex="-1" style="background-color: rgba(0,0,0,0.5);">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">{{ isEditMode ? 'Editar Proveedor' : 'Nuevo Proveedor' }}</h5>
+          <button type="button" class="btn-close" (click)="onCancel()" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="mb-3">
+              <label for="name" class="form-label">Nombre</label>
+              <input type="text" class="form-control" id="name" [(ngModel)]="supplier.name" name="name" required>
+            </div>
+            <div class="mb-3">
+              <label for="contact_person" class="form-label">Persona de contacto</label>
+              <input type="text" class="form-control" id="contact_person" [(ngModel)]="supplier.contact_person" name="contact_person" required>
+            </div>
+            <div class="mb-3">
+              <label for="email" class="form-label">Email</label>
+              <input type="email" class="form-control" id="email" [(ngModel)]="supplier.email" name="email" required>
+            </div>
+            <div class="mb-3">
+              <label for="phone" class="form-label">Teléfono</label>
+              <input type="text" class="form-control" id="phone" [(ngModel)]="supplier.phone" name="phone" required>
+            </div>
+            <div class="mb-3">
+              <label for="address" class="form-label">Dirección</label>
+              <input type="text" class="form-control" id="address" [(ngModel)]="supplier.address" name="address" required>
+            </div>
+            <div class="mb-3">
+              <label for="tax_id" class="form-label">RUT/ID Fiscal</label>
+              <input type="text" class="form-control" id="tax_id" [(ngModel)]="supplier.tax_id" name="tax_id" required>
+            </div>
+            <div class="mb-3">
+              <label for="notes" class="form-label">Notas</label>
+              <textarea class="form-control" id="notes" [(ngModel)]="supplier.notes" name="notes" rows="3"></textarea>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" (click)="onCancel()">Cancelar</button>
+          <button type="button" class="btn btn-primary" (click)="onSave()" [disabled]="!supplier.name || !supplier.contact_person || !supplier.email || !supplier.phone || !supplier.address || !supplier.tax_id">Guardar</button>
+        </div>
+      </div>
+    </div>
+  </div>

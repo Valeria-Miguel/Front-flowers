@@ -1,0 +1,49 @@
+<div class="modal fade show d-block" tabindex="-1" style="background-color: rgba(0,0,0,0.5);">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">{{ isEditMode ? 'Editar Usuario' : 'Nuevo Usuario' }}</h5>
+          <button type="button" class="btn-close" (click)="onCancel()" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="mb-3">
+              <label for="username" class="form-label">Usuario</label>
+              <input type="text" class="form-control" id="username" [(ngModel)]="user.username" name="username" required>
+            </div>
+            <div class="mb-3">
+              <label for="email" class="form-label">Email</label>
+              <input type="email" class="form-control" id="email" [(ngModel)]="user.email" name="email" required>
+            </div>
+            <div class="mb-3">
+              <label for="first_name" class="form-label">Nombre</label>
+              <input type="text" class="form-control" id="first_name" [(ngModel)]="user.first_name" name="first_name" required>
+            </div>
+            <div class="mb-3">
+              <label for="last_name" class="form-label">Apellido</label>
+              <input type="text" class="form-control" id="last_name" [(ngModel)]="user.last_name" name="last_name" required>
+            </div>
+            <div class="mb-3">
+              <label for="second_last_name" class="form-label">Segundo Apellido (Opcional)</label>
+              <input type="text" class="form-control" id="second_last_name" [(ngModel)]="user.second_last_name" name="second_last_name">
+            </div>
+            <div class="mb-3">
+              <label for="role" class="form-label">Rol</label>
+              <select class="form-select" id="role" [(ngModel)]="user.role" name="role" required>
+                <option value="" disabled>Selecciona un rol</option>
+                <option *ngFor="let role of roles" [value]="role">{{ role }}</option>
+              </select>
+            </div>
+            <div class="mb-3" *ngIf="!isEditMode">
+              <label for="password" class="form-label">Contraseña</label>
+              <input type="password" class="form-control" id="password" [(ngModel)]="user.password" name="password" required>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" (click)="onCancel()">Cancelar</button>
+          <button type="button" class="btn btn-primary" (click)="onSave()" [disabled]="!user.username || !user.email || !user.first_name || !user.last_name || !user.role">Guardar</button>
+        </div>
+      </div>
+    </div>
+  </div>
